@@ -10,7 +10,7 @@ class Window(QMainWindow):
         self.top = 200
         self.left = 500
         self.width = 400
-        self.height = 300
+        self.height = 100
         self.InitWindow()
 
     def InitWindow(self):
