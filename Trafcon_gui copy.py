@@ -1,11 +1,16 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QAction, QHBoxLayout, QSplitter, QFrame, QLineEdit, QListWidget, QTextBrowser
 import sys
 from PyQt5.QtGui import QIcon
-
+from PyQt5.QtCore import Qt
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
+        
+        self.groupsList = QListWidget() 
+        self.messagesList = QListWidget() 
+        self.messageView = QTextBrowser()
+
         self.title = "TrafCon"
         self.top = 100
         self.left = 170
@@ -13,7 +18,36 @@ class Window(QMainWindow):
         self.height = 720
         
         self.InitWindow()
+        self.Splitter()
         self.CreateMenu()
+
+        self.messageSplitter = QSplitter(Qt.Vertical)
+        self.messageSplitter.addWidget(self.messagesList)
+        self.messageSplitter.addWidget(self.messageView)
+        self.mainSplitter = QSplitter(Qt.Horizontal)
+        self.mainSplitter.addWidget(self.groupsList)
+        self.mainSplitter.addWidget(self.messageSplitter)
+        self.setCentralWidget(self.mainSplitter)
+
+    def Splitter(self):
+        hbox = QHBoxLayout()
+        left = QFrame()
+        left.setFrameShape(QFrame.StyledPanel)
+        bottom = QFrame()
+        bottom.setFrameShape(QFrame.StyledPanel)
+        splitter1 = QSplitter(Qt.Horizontal)
+        splitter1.setStyleSheet('background-color:red')
+        lineedit = QLineEdit()
+        lineedit.setStyleSheet('background-color:green')
+        splitter1.addWidget(left)
+        splitter1.addWidget(lineedit)
+        splitter1.setSizes([200,200])
+        spliiter2 = QSplitter(Qt.Vertical)
+        spliiter2.addWidget(splitter1)
+        spliiter2.addWidget(bottom)
+        spliiter2.setStyleSheet('background-color:yellow')
+        hbox.addWidget(spliiter2)
+        self.setLayout(hbox)
 
     def InitWindow(self):
         self.setWindowIcon(QtGui.QIcon("File/dishub-png"))
