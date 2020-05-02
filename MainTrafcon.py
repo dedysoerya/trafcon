@@ -11,7 +11,7 @@ from PyQt5.uic import loadUi
 class TrafCon(QMainWindow):
     def __init__(self):
         super(TrafCon, self).__init__()
-        loadUi('CV\\GUI\\MainTrafcon.ui', self)
+        loadUi('MainTrafcon.ui', self)
         self.video_size = QSize(600, 400)
         self.image = None
         self.processedImage = None
@@ -70,6 +70,8 @@ class TrafCon(QMainWindow):
             self.start_webcam(videoCamPath)
         else:
             print('RTSP belum siap')
+            message = QMessageBox.warning(self, "Warning", "RTSP Mode is not ready",
+                                          QMessageBox.Ok)
 
     def start_webcam(self, videopath):
         # 0 =default #1,2,3 =Extra Webcam
